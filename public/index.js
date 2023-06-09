@@ -73,38 +73,3 @@ function deleteOrder(orderId) {
     })
     .catch(error => console.log(error));
 }
-
-document.getElementById('submit').addEventListener('click', function(event) {
-  event.preventDefault();
-
-  const price = document.getElementById('price').value;
-  const dish = document.getElementById('dish').value;
-  const table = document.getElementById('table').value;
-
-  const targetTable = document.getElementById(table);
-  const newRow = targetTable.insertRow();
-  const cell1 = newRow.insertCell(0);
-  const cell2 = newRow.insertCell(1);
-  const cell3 = newRow.insertCell(2);
-
-  cell1.innerHTML = price;
-  cell2.innerHTML = dish;
-
-  const deleteBtn = document.createElement('button');
-  deleteBtn.textContent = 'delete';
-  cell3.appendChild(deleteBtn);
-
-  deleteBtn.addEventListener('click', () => {
-    deleteOrder(order.id);
-  });
-
-  const editBtn = document.createElement('button');
-  editBtn.textContent = 'update';
-  cell3.appendChild(editBtn);
-
-  editBtn.addEventListener('click', () => {
-    editOrder(order.id);
-  });
-
-  document.getElementById('form').reset();
-});
