@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="'en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>Orders:</h1>
+
+  <form id="form" action="/api/create" method="POST">
+
+    <label for="table">Table:</label>
+    <select id="table" name="table" required>
+      <option value="">Select a table</option>
+      <option value="1">Table 1</option>
+      <option value="2">Table 2</option>
+      <option value="3">Table 3</option>
+    </select><br><br>
+
+    <label for="dish">Dish:</label>
+    <input type="text" id="dish" name="dish" required><br><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" required><br><br>
+
+    <button type="submit" id="submit">Submit Order</button>
+    <button id="update">Update Order</button>
+  </form>
+
+  <h2>Order Summary:</h2>
+  <h3>Table 1--</h3>
+  <table id="1" class="table">
+    <tr>
+      <th>Price</th>
+      <th>Dish</th>
+      <th>Delete/Update</th>
+    </tr>
+  </table>
+
+  <h3>Table 2--</h3>
+  <table id="2" class="table">
+    <tr>
+      <th>Price</th>
+      <th>Dish</th>
+      <th>Delete/Update</th>
+    </tr>
+  </table>
+
+  <h3>Table 3--</h3>
+  <table id="3" class="table">
+    <tr>
+      <th>Price</th>
+      <th>Dish</th>
+      <th>Delete/Update</th>
+    </tr>
+  </table>
+
+  <script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+
+</html>
