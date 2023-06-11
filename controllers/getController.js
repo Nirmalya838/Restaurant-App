@@ -1,16 +1,15 @@
 const path = require('path');
 const connection = require('../database/db');
+const Order = require('../models/Order');
 
-function getOrders(req, res) {
-  const query = 'SELECT * FROM orders';
-  connection.query(query, (err, results) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    res.json(results);
-  });
+async function getOrders(req, res) {
+  try {
+    const orders = await Order.findAll();
+    res.json(orders);
+  } catch (error) {
+    console.error('Error retrieving orders:', error);
+    res.status(500).send('Internal Server Error');
+  }
 }
 
 function getIndexPage(req, res) {

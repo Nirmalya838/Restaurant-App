@@ -1,35 +1,43 @@
 const path = require('path');
 const connection = require('../database/db');
+const Order = require('../models/Order');
 
-function getOrderDetails (req, res) {
-    const orderId =req.params.id;
-    const query = `SELECT * FROM orders WHERE id = ${orderId}`;
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send('Internal Server Error');
-        return;
-      }
-      const order = results[0];
-      res.json(order);
-    });
+async function getOrderDetails(req, res) {
+  try {
+    const orderId = req.params.id;
+    const order = await Order.findByPk(orderId);
+    if (!order) {
+      res.status(404).send('Order not found');
+      return;
+    }
+    res.json(order);
+  } catch (error) {
+    console.error('Error retrieving order:', error);
+    res.status(500).send('Internal Server Error');
   }
-  
-  function updateOrderDetails (req, res) {
+}
+
+async function updateOrderDetails(req, res) {
+  try {
     const orderId = req.params.id;
     const { table, dish, price } = req.body;
-    const query = 'UPDATE orders SET `table` = ?, dish = ?, price = ? WHERE id = ?';
-    connection.query(query, [table, dish, price, orderId], (err, results) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send('Internal Server Error');
-        return;
-      }
-      res.sendFile(path.join(__dirname, '../views', 'update.html'));
-    });
-  };
-
-  module.exports = {
-    getOrderDetails,
-    updateOrderDetails,
+    const order = await Order.findByPk(orderId);
+    if (!order) {
+      res.status(404).send('Order not found');
+      return;
+    }
+    order.table = table;
+    order.dish = dish;
+    order.price = price;
+    await order.save();
+    res.sendFile(path.join(__dirname, '../views', 'update.html'));
+  } catch (error) {
+    console.error('Error updating order:', error);
+    res.status(500).send('Internal Server Error');
   }
+}
+
+module.exports = {
+  getOrderDetails,
+  updateOrderDetails,
+};
