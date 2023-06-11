@@ -1,6 +1,8 @@
-fetch('/api/read')
-  .then(response => response.json())
-  .then(orders => {
+axios.get('/api/read')
+  .then(response => {
+    const orders = response.data;
+    const tableTotals = {};
+
     orders.forEach(order => {
       const tableId = order.table;
       const targetTable = document.getElementById(tableId);
@@ -28,11 +30,25 @@ fetch('/api/read')
       editBtn.addEventListener('click', () => {
         editOrder(order.id);
       });
+
+      if (!tableTotals[tableId]) {
+        tableTotals[tableId] = 0;
+      }
+      tableTotals[tableId] += order.price;
     });
+
+    for (const tableId in tableTotals) {
+      const tableHeading = document.querySelector(`h3[data-table="${tableId}"]`);
+      if (tableHeading) {
+        const totalAmount = tableTotals[tableId];
+        tableHeading.textContent += `Total payable: Rs.${totalAmount}`;
+      }
+    }    
   })
   .catch(error => {
     console.error('Error:', error);
   });
+
 
 function editOrder(orderId) {
   axios.get(`/api/read/${orderId}`)
@@ -45,7 +61,7 @@ function editOrder(orderId) {
       dish.value = response.data.dish;
 
       const updateBtn = document.getElementById('update');
-      updateBtn.addEventListener('click', function(event) {
+      updateBtn.addEventListener('click', function (event) {
         event.preventDefault();
 
         const updatedOrder = {

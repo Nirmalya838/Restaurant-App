@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="'en">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -10,9 +10,9 @@
 </head>
 
 <body>
-  <h1>Orders:</h1>
+  <h1>Place Orders Here:</h1>
 
-  <form id="form" action="/api/create" method="POST">
+  <form action="/api/create" method="POST">
 
     <label for="table">Table:</label>
     <select id="table" name="table" required>
@@ -33,35 +33,35 @@
   </form>
 
   <h2>Order Summary:</h2>
-  <h3>Table 1--</h3>
-  <table id="1" class="table">
-    <tr>
-      <th>Price</th>
-      <th>Dish</th>
-      <th>Delete/Update</th>
-    </tr>
-  </table>
+  <h3 data-table="1">Table 1--</h3>
+<table id="1" class="table">
+  <tr>
+    <th>Price</th>
+    <th>Dish</th>
+    <th>Delete/Update</th>
+  </tr>
+</table>
 
-  <h3>Table 2--</h3>
-  <table id="2" class="table">
-    <tr>
-      <th>Price</th>
-      <th>Dish</th>
-      <th>Delete/Update</th>
-    </tr>
-  </table>
+<h3 data-table="2">Table 2--</h3>
+<table id="2" class="table">
+  <tr>
+    <th>Price</th>
+    <th>Dish</th>
+    <th>Delete/Update</th>
+  </tr>
+</table>
 
-  <h3>Table 3--</h3>
-  <table id="3" class="table">
-    <tr>
-      <th>Price</th>
-      <th>Dish</th>
-      <th>Delete/Update</th>
-    </tr>
-  </table>
+<h3 data-table="3">Table 3--</h3>
+<table id="3" class="table">
+  <tr>
+    <th>Price</th>
+    <th>Dish</th>
+    <th>Delete/Update</th>
+  </tr>
+</table>
 
-  <script src="index.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>
